@@ -19,7 +19,9 @@ The app runs on Windows, macOS, and Linux. It can be built using Visual Studio 2
 | What | How |
 |-|-|
 | create database | `dotnet ef database update` |
+| restore packages | `dotnet restore` |
 | build | `dotnet build` |
+| run | `dotnet run` |
 | run unit tests | `dotnet test Todo.Tests` |
 | run | `dotnet run --project Todo` |
 
