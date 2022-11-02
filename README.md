@@ -1,8 +1,12 @@
 # Storm Technical Test – A Todo-List Project
 
-This is a todo-list webapp written in C# using [.NET 5.0](https://get.asp.net).
+This is a todo-list webapp written in C# using [.NET 6.0](https://get.asp.net).
 
 Show us what you've got by knocking it into shape!
+
+## Requirements
+- [.NET 6](https://dotnet.microsoft.com/en-us/download/dotnet/6.0)
+- [EF Core tools](https://learn.microsoft.com/en-us/ef/core/cli/dotnet)
 
 ## Practicalities
 
@@ -14,6 +18,7 @@ The app runs on Windows, macOS, and Linux. It can be built using Visual Studio 2
 
 | What | How |
 |-|-|
+| create database | `dotnet ef database update` |
 | build | `dotnet build` |
 | run unit tests | `dotnet test Todo.Tests` |
 | run | `dotnet run --project Todo` |
