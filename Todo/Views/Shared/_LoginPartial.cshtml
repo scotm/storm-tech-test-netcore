@@ -6,20 +6,22 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm" class="navbar-right">
-        <ul class="nav navbar-nav navbar-right">
-            <li>
-                <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
+    <form asp-area="Identity" asp-page="/Account/Logout"
+    asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })" method="post" id="logoutForm"
+    class="navbar-right">
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">
 
-                    @{
+                @{
 
                         var iu = await UserManager.GetUserAsync(User);
                         var emailAddress = await UserManager.GetEmailAsync(iu);
                         var gravatarhash = Gravatar.GetHash(emailAddress);
                     }
-
+                    <script>const gravatarhash = '@gravatarhash';</script>
                     <img src="https://www.gravatar.com/avatar/@gravatarhash?s=30" />
-                    @UserManager.GetUserName(User)
+                    <div class='userIdentity'>@UserManager.GetUserName(User)</div>
                 </a>
             </li>
             <li>
@@ -31,7 +33,7 @@
 else
 {
     <ul class="nav navbar-nav navbar-right">
-        <li><a asp-area="Identity" asp-page="/Account/Register">Register</a></li>
-        <li><a asp-area="Identity" asp-page="/Account/Login">Login</a></li>
-    </ul>
+    <li><a asp-area="Identity" asp-page="/Account/Register">Register</a></li>
+    <li><a asp-area="Identity" asp-page="/Account/Login">Login</a></li>
+</ul>
 }

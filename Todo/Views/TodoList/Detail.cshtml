@@ -93,7 +93,7 @@
 
                     <div class="col-md-4 text-right">
                         <small>
-                            @item.ResponsibleParty.UserName
+                            <div class='userIdentity'>@item.ResponsibleParty.UserName</div>
 
                             <img
                             src="https://www.gravatar.com/avatar/@Gravatar.GetHash(item.ResponsibleParty.Email)?s=30" />
@@ -115,3 +115,18 @@
         </li>
     </ul>
 </div>
+
+<!-- TODO: Add an event listener which fires up. -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        console.log(gravatarhash);
+        fetch('https://www.gravatar.com/' + gravatarhash + '.json')
+            .then(function (response) {
+                console.log(response.body);
+                return response.json();
+            })
+            .then(function (myJson) {
+                console.log(myJson);
+            });
+    });
+</script>

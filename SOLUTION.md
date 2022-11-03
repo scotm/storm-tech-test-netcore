@@ -80,3 +80,21 @@ Ended up doing some pair programming with the compiler, views and tests to add R
 I've added a Button to `Views/TodoList/Detail.cshtml` and some scaffolding, which adds a query param. When the button is clicked, the TodoListItems are sorted in descending order by Rank.
 
 Added a test case to ensure that WhenTodoItemIsConvertedToEditFields checks Rank, too.
+
+## Answer 8
+
+I don't think we should do this as part of page load. If Gravatar is down, then we cannot retrieve the user's profile, and the entire page fails. Failed images are acceptable, the page itself failing is not.
+
+Ideally, so as not to delay the Gravatar server sending the response, you'd want to do the fetch and manipulation on the client side - deliver the required user identifers/graphic links as is, and replace the email address on document load. Use the browser's fetch api to send the request, on promise fulfilment, deserialise the JSON into an object, and replace the email addresses with the "displayName" property.
+
+If the promise fails, catch it and let it pass - you've still got email as an identifier. Or (if needed) retry it on exponentially longer timeouts - handle errors/outages gracefully.
+
+But. This didn't work.
+
+Error message
+
+```
+Access to fetch at 'https://www.gravatar.com/5f6f3999b09d89f9477fc5559927c6e1.json' from origin 'https://localhost:5001' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
+```
+
+I think I'm going to have to implement this as an API call, and do it this way.
