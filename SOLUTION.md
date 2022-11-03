@@ -31,3 +31,16 @@ But the problem specified to make the changes to `Views/TodoList/Detail.cshtml`.
 ## Answer 3
 
 Ran the unit tests, noted the failing method, then followed the setup method up to the faulty `TodoItemEditFields` constructor. I then added the correct `Importance` field as passed into the constructor and the unit test passed.
+
+## Answer 4
+
+Initially just changed the text in the View `label` on `TodoItem/Create.cshtml` and `TodoItem/Edit.cshtml` - then guessed there was a better DRY way, like Django has in its model definitions. A quick google tells me that this is called a "Data Annotation" - it looks like a Python decorator.
+
+```csharp
+    [Display(Name = "Who is going to do this?")]
+    public string ResponsiblePartyId { get; set; }
+```
+
+Did the same thing with the IsDone field. Looks nicer.
+
+Not sure how to test how or if these changes end up on the rendered View. Leaving tests alone for now.
