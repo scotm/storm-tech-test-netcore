@@ -85,16 +85,21 @@ Added a test case to ensure that WhenTodoItemIsConvertedToEditFields checks Rank
 
 I don't think we should do this as part of page load. If Gravatar is down, then we cannot retrieve the user's profile, and the entire page fails. Failed images are acceptable, the page itself failing is not.
 
-Ideally, so as not to delay the Gravatar server sending the response, you'd want to do the fetch and manipulation on the client side - deliver the required user identifers/graphic links as is, and replace the email address on document load. Use the browser's fetch api to send the request, on promise fulfilment, deserialise the JSON into an object, and replace the email addresses with the "displayName" property.
+Therefore, this enhancement is best done on the client side - deliver the required user identifers/graphic links on pageload, and replace the email address/username on DOMContentLoaded.
 
-If the promise fails, catch it and let it pass - you've still got email as an identifier. Or (if needed) retry it on exponentially longer timeouts - handle errors/outages gracefully.
+- Use the browser's fetch api to send a request containing an MD5 hash of the email address to the Gravatar API.
+- On promise fulfilment, deserialise the JSON into an object, and replace the email addresses with the appropriate name property.
 
-But. This didn't work.
+If the promise fails, catch it and let it pass - you've still got the normal identifier.
 
-Error message
+But. This didn't work. When asking gravatar.com directly - we got the following error message.
 
 ```
 Access to fetch at 'https://www.gravatar.com/5f6f3999b09d89f9477fc5559927c6e1.json' from origin 'https://localhost:5001' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. If an opaque response serves your needs, set the request's mode to 'no-cors' to fetch the resource with CORS disabled.
 ```
 
-I think I'm going to have to implement this as an API call, and do it this way.
+-->
+
+CORS means we probably need to implement this as a server-API endpoint. So, I've written a GravatarController.cs file, which performs a fetch on our behalf and returns a JSON object with the displayName and the Gravatar URL.
+
+_NOTE_: This solution is pretty brittle. If the app is refactored to not use Email as an identifier, then this needs to be changed. I've left it as is for now.
