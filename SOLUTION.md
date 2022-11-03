@@ -103,3 +103,25 @@ Access to fetch at 'https://www.gravatar.com/5f6f3999b09d89f9477fc5559927c6e1.js
 CORS means we probably need to implement this as a server-API endpoint. So, I've written a GravatarController.cs file, which performs a fetch on our behalf and returns a JSON object with the displayName and the Gravatar URL.
 
 _NOTE_: This solution is pretty brittle. If the app is refactored to not use Email as an identifier, then this needs to be changed. I've left it as is for now.
+
+## Answer 9
+
+I'm not able to get this done in time.
+
+## Answer 10
+
+I'm not able to get this done in time.
+
+# Reflections
+
+A lot of web development frameworks all set out to do very similar things, but with degrees of difference. There are idiomatic things within each framework - but the core concepts are often very similar.
+
+As developers, we're all dealing with similar concepts and challenges. Data modelling, domain modelling, system design, managing complexity, handling and syncing state, and teamwork.
+
+From my experience with Django, Laravel, to even new blends of tech like the `create-t3-app` stack.
+
+What I'm picking up from this, and what I think is being demonstrated in this exercise, is that I'm not entirely sure on how to do the problems optimally or idiomatically, but I can certainly grok the concepts and the challenges. And if hired, I'll ask and learn the rest on the job.
+
+I'm still not anywhere near 100% on the C# syntax, but I've muddled through as well as I can under the time alotted, using what I know from other languages.
+
+I hope this gives you an impression of my ability to learn and adapt to new technologies and frameworks. I'm not a master of any one thing, but I'm a quick learner.
