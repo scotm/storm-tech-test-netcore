@@ -27,3 +27,7 @@ OrderBy(x => x.Col1).ThenBy(x => x.Col2)
 ```
 
 But the problem specified to make the changes to `Views/TodoList/Detail.cshtml`. So I've left that as is for now.
+
+## Answer 3
+
+Ran the unit tests, noted the failing method, then followed the setup method up to the faulty `TodoItemEditFields` constructor. I then added the correct `Importance` field as passed into the constructor and the unit test passed.
