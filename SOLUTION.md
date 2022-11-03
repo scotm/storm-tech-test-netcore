@@ -50,3 +50,20 @@ Not sure how to test how or if these changes end up on the rendered View. Leavin
 "On the details page, add an option to hide items that are marked as done."
 
 Wasn't clear what 'an option' was. I added a button to the bottom of the todo list with an onclick handler, that sets the class of the done item list elements to 'hidden'. A little bit of Bootstrap 3 magic.
+
+## Answer 6
+
+Okay. A little bit of reading on the dbContext and the Entity Framework. I added another static method in the `ApplicationDbContextConvenience.cs` file and copied the provided code from RelevantTodoLists.
+
+I then changed the .Where predicate using an inclusive or - the Items.Any() method should also include other ToDo lists that had items with the ResponsibleParty's userId.
+
+```csharp
+  public static IQueryable<TodoList> ReplacementRelevantToDoLists(this ApplicationDbContext dbContext, string userId)
+  {
+      return dbContext.TodoLists.Include(tl => tl.Owner)
+          .Include(tl => tl.Items)
+          .Where(tl => tl.Owner.Id == userId || tl.Items.Any(ti => ti.ResponsibleParty.Id == userId));
+  }
+```
+
+I reckon this could be quite powerful on the backend - with a bit of time to appreciate what Entity Framework can do.
