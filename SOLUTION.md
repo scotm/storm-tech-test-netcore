@@ -67,3 +67,16 @@ I then changed the .Where predicate using an inclusive or - the Items.Any() meth
 ```
 
 I reckon this could be quite powerful on the backend - with a bit of time to appreciate what Entity Framework can do.
+
+## Answer 7
+
+Some reading up on the Entity Framework and migrations.
+
+- Before starting I created an initial migration, with `dotnet ef migrations add InitialMigration`.
+- Added a Rank integer field to the TodoItem Entity class with getter/setter methods. Ran the `dotnet ef migrations add AddRank` command. Then ran the `dotnet ef database update` command.
+
+Ended up doing some pair programming with the compiler, views and tests to add Rank to the places it was needed. Wasn't sure if I was getting this right - it's still a bit baffling. But it worked, eventually.
+
+I've added a Button to `Views/TodoList/Detail.cshtml` and some scaffolding, which adds a query param. When the button is clicked, the TodoListItems are sorted in descending order by Rank.
+
+Added a test case to ensure that WhenTodoItemIsConvertedToEditFields checks Rank, too.

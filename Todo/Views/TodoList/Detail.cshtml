@@ -5,11 +5,34 @@
 
 @{
     ViewData["Title"] = $"List: {Model.Title}";
+
+    // Yes, I absolutely used StackOverflow here.
+    // https://stackoverflow.com/a/48251637
+    bool isOrderedByRank()
+    {
+        Microsoft.Extensions.Primitives.StringValues queryVal;
+        return (Context.Request.Query.TryGetValue("order", out queryVal) && queryVal.FirstOrDefault() == "rank");
+    }
+
+    string thisURL()
+    {
+        string querystring = Context.Request.QueryString.Value;
+        return Context.Request.Path.Value + querystring;
+    }
+
     // I'm sure there's a better, more idiomatic method of doing this. I'm not a C# dev. Yet.
     var items = Model.Items.ToArray();
 
-    // Use Array sort method to sort items by Importance
-    Array.Sort(items, (x, y) => x.Importance.CompareTo(y.Importance));
+    // Use Array sort method to sort items
+    if (isOrderedByRank())
+    {
+        Array.Sort(items, (x, y) => y.Rank.CompareTo(x.Rank));
+    }
+    else
+    {
+        Array.Sort(items, (x, y) => x.Importance.CompareTo(y.Importance));
+    }
+
 }
 
 <h2>@ViewData["Title"]</h2>
@@ -54,10 +77,12 @@
                             @if (item.IsDone)
                             {
                                 <s>@item.Title</s>
+                                <s>@item.Rank</s>
                             }
                             else
                             {
                                 <text>@item.Title</text>
+                                <text>@item.Rank</text>
                             }
                         </a>
                         @if (item.IsDone)
@@ -83,6 +108,10 @@
             <button class="btn-sm"
                 onclick='Array.from(document.getElementsByClassName("done")).forEach((e) => e.classList.add("hidden"));'>Hide
                 all Done</button>
+            @if (!isOrderedByRank())
+            {
+                <button class="btn-sm"><a href="@thisURL()&order=rank">Sort by Rank</a></button>
+            }
         </li>
     </ul>
 </div>

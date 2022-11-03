@@ -7,39 +7,45 @@ using Xunit;
 
 namespace Todo.Tests
 {
-    public class WhenTodoItemIsConvertedToEditFields
+  public class WhenTodoItemIsConvertedToEditFields
+  {
+    private readonly TodoItem srcTodoItem;
+    private readonly TodoItemEditFields resultFields;
+
+    public WhenTodoItemIsConvertedToEditFields()
     {
-        private readonly TodoItem srcTodoItem;
-        private readonly TodoItemEditFields resultFields;
+      var todoList = new TestTodoListBuilder(new IdentityUser("alice@example.com"), "shopping")
+              .WithItem("bread", Importance.High, 2)
+              .Build()
+          ;
 
-        public WhenTodoItemIsConvertedToEditFields()
-        {
-            var todoList = new TestTodoListBuilder(new IdentityUser("alice@example.com"), "shopping")
-                    .WithItem("bread", Importance.High)
-                    .Build()
-                ;
+      srcTodoItem = todoList.Items.First();
 
-            srcTodoItem = todoList.Items.First();
-
-            resultFields = TodoItemEditFieldsFactory.Create(srcTodoItem);
-        }
-
-        [Fact]
-        public void EqualTodoListId()
-        {
-            Assert.Equal(srcTodoItem.TodoListId, resultFields.TodoListId);
-        }
-
-        [Fact]
-        public void EqualTitle()
-        {
-            Assert.Equal(srcTodoItem.Title, resultFields.Title);
-        }
-
-        [Fact]
-        public void EqualImportance()
-        {
-            Assert.Equal(srcTodoItem.Importance, resultFields.Importance);
-        }
+      resultFields = TodoItemEditFieldsFactory.Create(srcTodoItem);
     }
+
+    [Fact]
+    public void EqualTodoListId()
+    {
+      Assert.Equal(srcTodoItem.TodoListId, resultFields.TodoListId);
+    }
+
+    [Fact]
+    public void EqualTitle()
+    {
+      Assert.Equal(srcTodoItem.Title, resultFields.Title);
+    }
+
+    [Fact]
+    public void EqualImportance()
+    {
+      Assert.Equal(srcTodoItem.Importance, resultFields.Importance);
+    }
+
+    [Fact]
+    public void EqualRank()
+    {
+      Assert.Equal(srcTodoItem.Rank, resultFields.Rank);
+    }
+  }
 }
