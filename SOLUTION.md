@@ -44,3 +44,9 @@ Initially just changed the text in the View `label` on `TodoItem/Create.cshtml` 
 Did the same thing with the IsDone field. Looks nicer.
 
 Not sure how to test how or if these changes end up on the rendered View. Leaving tests alone for now.
+
+## Answer 5
+
+"On the details page, add an option to hide items that are marked as done."
+
+Wasn't clear what 'an option' was. I added a button to the bottom of the todo list with an onclick handler, that sets the class of the done item list elements to 'hidden'. A little bit of Bootstrap 3 magic.

@@ -39,6 +39,10 @@
                     contextualClass = "";
                     break;
             }
+            if (item.IsDone)
+            {
+                contextualClass += " done";
+            }
 
             <li class="list-group-item @contextualClass">
 
@@ -56,6 +60,10 @@
                                 <text>@item.Title</text>
                             }
                         </a>
+                        @if (item.IsDone)
+                        {
+                            <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                        }
                     </div>
 
                     <div class="col-md-4 text-right">
@@ -71,5 +79,10 @@
 
             </li>
         }
+        <li class="list-group-item">
+            <button class="btn-sm"
+                onclick='Array.from(document.getElementsByClassName("done")).forEach((e) => e.classList.add("hidden"));'>Hide
+                all Done</button>
+        </li>
     </ul>
 </div>
